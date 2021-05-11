@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} My Blog | Posts {% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-title">{% if my_posts %}My {% endif %}Posts</h1>
+    {% if my_posts %}
+        <a href="{% url 'post-create' %}">
+            <button class="btn btn-success" type="button">New Post</button>
+        </a>
+        <hr>
+    {% endif %}
+    {% for post in post_list %}
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" width="50%">{{ post.title }}</h4>
+                <p class="card-subtitle mb-1 text-muted"> by <a href="#"> {{ post.author }} </a></p>
+                <p class="card-text mb-1 text-muted">Last update: {{ post.update_datetime }}</p>
+                <br>
+                <p class="card-text">{{ post.get_content_beginning }}
+                    <a href="{{ post.get_absolute_url }}">read</a></p>
+            </div>
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

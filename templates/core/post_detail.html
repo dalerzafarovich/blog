@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} My Blog | Post {% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1 class="page-title">{{ post.title }}</h1>
+    <p class="text-muted">Created: {{ post.post_datetime }}</p>
+    <p class="text-muted">Updated: {{ post.update_datetime }}</p>
+    <p> {{ post.content }}</p>
+    <p class="text-muted">by <a href="#">{{ post.author }}</a></p>
+     {% if is_author %}
+    <form action="{% url 'post-delete' post.id %}">
+        <input type='submit' class="btn btn-danger" value="Delete">
+    </form>
+    {% endif %}
+    <hr>
+    <h4>Comments</h4>
+    <div class="comments" style="margin: 20px;">
+
+        <form action="{% url 'comment-post' post.id %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="comment" class="form-label">Your comment</label>
+                <textarea class="form-control" id="comment" rows="3" name="content"></textarea>
+                <input type="hidden" value="{{ user }}" name="author">
+                <input type="submit" class="btn btn-success" value="Post">
+            </div>
+        </form>
+        {% for comment in post.comment_set.all %}
+            <div class="comment card" style="padding: 10px">
+                <div class="'card-body"></div>
+                <strong class="card-title">by <a href="">{{ comment.author }} </a></strong>
+                <p class="card-text">{{ comment.content }}</p>
+                {% if user.id is comment.author.id %}
+                    <form action="{% url 'comment-delete' comment.id %}" method="post"> {% csrf_token %}
+                        <input type="submit" class="btn btn-danger" value="Delete"></form>
+                {% endif %}
+            </div>
+        <br>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

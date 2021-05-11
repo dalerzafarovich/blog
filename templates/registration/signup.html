@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .form-login{
+        max-width: 500px;
+       }
+
+
+
+</style>
+
+<form action="" method="post">
+
+    {% csrf_token %}
+    <div style="max-width: 500px; margin-left: auto; margin-right: auto">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username*</label>
+            <input type="text" class="form-control form-login {% if form.username.errors %} is-invalid {% endif %}"
+                   id="username"
+                   name="username" {% if form.username.value %} value="{{ form.username.value }}" {% endif %}>
+            <div class="invalid-feedback">
+                {{ form.username.errors }}
+            </div>
+        </div>
+        <div  class="mb-3">
+            <label for="first_name" class="form-label">First name*</label>
+            <input type="text" class="form-control form-login"
+                   id="first_name"
+                   name="first_name" {% if form.first_name.value %} value="{{ form.first_name.value }}" {% endif %} required>
+        </div>
+        <div class="invalid-feedback">
+            Invalid
+            </div>
+         <div class="mb-3">
+            <label for="last_name" class="form-label">Last name</label>
+            <input type="text" class="form-control form-login"
+                   id="last_name"
+                   name="last_name" {% if form.last_name.value %} value="{{ form.last_name.value }}" {% endif %}>
+        </div>
+        <div class="invalid-feedback">
+            Invalid
+            </div>
+        <br>
+        <div class="mb-3">
+            <label for="password1" class="form-label">Password*</label>
+            <input type="password" class="form-control form-login {% if form.password1.errors %} is-invalid {% endif %}"
+                   id="password1" name="password1">
+            <div class="invalid-feedback">
+                {{ form.password1.errors }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirm password*</label>
+            <input type="password" class="form-control form-login {% if form.password2.errors %} is-invalid {% endif %}"
+                   id="password2" name="password2">
+            <div class="invalid-feedback">
+                {{ form.password2.errors }}
+            </div>
+        </div>
+        <div style="text-align: center">
+            <button type="submit" class="btn btn-primary">Sign up</button>
+            <hr>
+            <p><a href="{% url 'login' %}">Already have an account?</a></p>
+        </div>
+    </div>
+
+</form>
+
+{% endblock %}

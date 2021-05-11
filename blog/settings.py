@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-c+_4)8!8l7l)_%s@-jsimd_!qt+b@w0e5x4xa(damjsp@*z(30')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
 ALLOWED_HOSTS = ['*']
 
@@ -134,3 +134,6 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)

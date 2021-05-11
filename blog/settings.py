@@ -132,3 +132,5 @@ CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 
 SESSION_COOKIE_SECURE = True
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

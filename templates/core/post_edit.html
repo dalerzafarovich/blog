@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} My Blog | Edit Post {% endblock %}
+{% block content %}
+<h1 class="page-title">{{ post.title }}</h1>
+<form method="post" action="">
+    {% if form.errors %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <div>
+            Error
+        </div>
+    </div>
+    {% endif %}
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="post-content" class="form-label">Text </label>
+        <textarea class="form-control" id="post-content" rows="10"  name="content">{{ post.content }}</textarea>
+    </div>
+    <input type="submit" value="Post" class="btn btn-success">
+</form>
+{% endblock %}

@@ -9,7 +9,10 @@
     <p> {{ post.content }}</p>
     <p class="text-muted">by <a href="#">{{ post.author }}</a></p>
      {% if is_author %}
-    <form action="{% url 'post-delete' post.id %}">
+    <form action="{% url 'post-edit' post.id %}" style="display: inline">
+        <input type='submit' class="btn btn-warning" value="Edit">
+    </form>
+    <form action="{% url 'post-delete' post.id %}" style="display: inline">
         <input type='submit' class="btn btn-danger" value="Delete">
     </form>
     {% endif %}

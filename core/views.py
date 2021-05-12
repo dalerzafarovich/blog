@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, DeleteView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, DeleteView, CreateView, UpdateView
 
 from .forms import CommentForm, PostForm, RegistrationForm
 from .models import Post, Comment
@@ -14,7 +14,10 @@ from .models import Post, Comment
 
 class IndexView(TemplateView):
     def get(self, request, **kwargs):
-        content = {}
+        last_post = None
+        if request.user.is_authenticated:
+            last_post = request.user.post_set.all()[0]
+        content = {'post': last_post}
         return render(request, 'core/index.html', content)
 
 
@@ -48,6 +51,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form = form.save(commit=False)
         form.author = self.request.user
         form.save()
+        return redirect(form.get_absolute_url())
+
+
+class PostEditView(UpdateView):
+    model = Post
+    template_name = 'core/post_edit.html'
+    fields = ('content',)
+
+    def form_valid(self, form):
+        form = form.save()
         return redirect(form.get_absolute_url())
 
 

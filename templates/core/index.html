@@ -22,8 +22,8 @@
 </div>
 {% else %}
 <h6>Welcome!</h6>
-<a href="login">Log in</a><br>
-<a href="signup">Sign up</a><br>
+<a href="{% url 'login' %}">Log in</a><br>
+<a href="{% url 'sign-up' %}">Sign up</a><br>
 <a href="{% url 'post-list' %}">Posts</a>
 {% endif %}
 {% endblock %}

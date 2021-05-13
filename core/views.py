@@ -15,7 +15,7 @@ from .models import Post, Comment
 class IndexView(TemplateView):
     def get(self, request, **kwargs):
         last_post = None
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and request.user.post_set.all():
             last_post = request.user.post_set.all()[0]
         content = {'post': last_post}
         return render(request, 'core/index.html', content)
